@@ -6,10 +6,20 @@
 //
 
 import Foundation
+import Combine
 
-//  The load method relies on the return type’s conformance to the Decodable protocol, which is one component of the Codable protocol.
+//  An observable object is a custom object for your data that can be bound to a view from storage in SwiftUI’s environment. SwiftUI watches for any changes to observable objects that could affect a view, and displays the correct version of the view after a change.
 
-var landmarks: [Landmark] = load("landmarkData.json")
+final class ModelData: ObservableObject {
+    
+    //  The load method relies on the return type’s conformance to the Decodable protocol, which is one component of the Codable protocol.
+
+    //  An observable object needs to publish any changes to its data, so that its subscribers can pick up the change.
+    
+    @Published var landmarks: [Landmark] = load("landmarkData.json")
+
+}
+
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
