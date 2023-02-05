@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TextFieldView: View {
-    @State private var messageData = MessageState()
+    @State private var messageState = MessageState()
     @State private var inputText = ""
     @State private var responseText = ""
 
@@ -20,13 +20,15 @@ struct TextFieldView: View {
                     .border(.blue)
                 Button(action: {
                     responseText = "Waiting for response ..."
-                    self.messageData.callGPT(prompt: inputText) { (result) -> () in
+                    self.messageState.callGPT(prompt: inputText) { (result) -> () in
                             switch result {
                             case .success(let data):
                                 print(data)
                                 responseText = data
                             case .failure(let error):
-                                print(error)
+                                
+                                responseText = error.localizedDescription
+                                
                             }
                         }
                     }) {
