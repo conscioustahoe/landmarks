@@ -10,7 +10,7 @@ import Combine
 
 //  An observable object is a custom object for your data that can be bound to a view from storage in SwiftUI’s environment. SwiftUI watches for any changes to observable objects that could affect a view, and displays the correct version of the view after a change.
 
-final class ModelData: ObservableObject {
+final class ModelState: ObservableObject {
     
     //  The load method relies on the return type’s conformance to the Decodable protocol, which is one component of the Codable protocol.
 

@@ -17,7 +17,7 @@ struct ResponseBody: Decodable {
     let response: String
 }
 
-class MessageData {
+class MessageState {
     
     func callGPT(prompt : String, completion: @escaping (Result<String, Error>)->()) {
         let requestBody = RequestBody(user_id: "1", text: prompt, is_prompt: true)

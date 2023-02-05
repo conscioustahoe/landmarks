@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var modelData = ModelData()
+    @StateObject private var modelData = ModelState()
 
     var body: some View {
-        PlaygroundView()
+        TextFieldView()
     }
 }
 
@@ -19,7 +19,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(ModelData())
+            .environmentObject(ModelState())
 
     }
 }
