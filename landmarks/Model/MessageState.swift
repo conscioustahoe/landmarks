@@ -19,7 +19,7 @@ struct ResponseBody: Decodable {
 
 class MessageState {
     
-    func callGPT(prompt : String, timeout: TimeInterval = 3.0, completion: @escaping (Result<String, Error>)->()) {
+    func callGPT(prompt : String, timeout: TimeInterval = 20.0, completion: @escaping (Result<String, Error>)->()) {
         let requestBody = RequestBody(user_id: "1", text: prompt, is_prompt: true)
         let url = URL(string: "https://af-backend-gu2hcas3ba-uw.a.run.app/chat/")!
         var request = URLRequest(url: url)
@@ -39,8 +39,10 @@ class MessageState {
         task.resume()
         
         DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
-            task.cancel()
-            completion(.failure(NSError(domain: "makePostRequest", code: 4, userInfo: [NSLocalizedDescriptionKey: "Request timed out"])))
+            if task.state != .completed {
+                task.cancel()
+                completion(.failure(NSError(domain: "makePostRequest", code: 4, userInfo: [NSLocalizedDescriptionKey: "Request timed out"])))
+            }
         }
     }
-    }
+}
